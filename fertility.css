@@ -66,7 +66,7 @@
 .fp-program-card>.image-anime{height:380px;border-radius:24px}
 .fp-program-media{position:relative;display:block;overflow:hidden;isolation:isolate}
 .fp-program-media::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(36,40,51,.58);transform:scaleX(0);transform-origin:right center;transition:transform .52s cubic-bezier(.22,.61,.36,1);pointer-events:none}
-.fp-program-arrow{position:absolute;right:24px;bottom:24px;z-index:2;display:grid;width:58px;height:58px;place-items:center;border-radius:50%;background:var(--color-accent);color:#fff;opacity:0;transform:translateX(38px);transition:opacity .3s ease,transform .52s cubic-bezier(.22,.61,.36,1);cursor:pointer}
+.fp-program-arrow{position:absolute;right:24px;bottom:24px;z-index:2;display:grid;width:58px;height:58px;place-items:center;border-radius:50%;background:var(--color-accent);color:#fff;opacity:0;visibility:visible;transform:translateX(38px);transition:opacity .3s ease,transform .52s cubic-bezier(.22,.61,.36,1);cursor:default}
 .fp-program-arrow svg{display:block;width:29px;height:29px;fill:currentColor;transform:rotate(-45deg);transform-origin:center;transition:transform .52s cubic-bezier(.22,.61,.36,1)}
 .fp-program-card:hover .fp-program-media::before,.fp-program-card:focus-within .fp-program-media::before{transform:scaleX(1);transform-origin:left center}
 .fp-program-card:hover .fp-program-arrow,.fp-program-card:focus-within .fp-program-arrow{opacity:1;transform:translateX(0)}

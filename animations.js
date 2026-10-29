@@ -203,7 +203,7 @@
     addSectionTimeline('.fp-stats', { cards: '.fp-stats-grid > div' });
     addSectionTimeline('.fp-audience', { cards: '.fp-audience-grid > div, .fp-trust li' });
     addSectionTimeline('.fp-good-news', { controls: '.fp-auto-tools' });
-    addSectionTimeline('.fp-programs', { cards: '.fp-program-card', media: '.fp-program-media', controls: '.fp-program-arrow' });
+    addSectionTimeline('.fp-programs', { cards: '.fp-program-card', media: '.fp-program-media' });
     addSectionTimeline('.fp-testimonials', { controls: '.carousel-controls' });
     addSectionTimeline('.fp-concerns', { cards: '.fp-concern' });
     addSectionTimeline('.fp-stories', { controls: '.carousel-controls' });
@@ -264,7 +264,7 @@
         ];
         parallaxAnimations.push(...fertilityParallax);
       }
-      return () => parallaxAnimations.forEach((animation) => animation.kill());
+      return undefined;
     });
     animations.push(media);
 
