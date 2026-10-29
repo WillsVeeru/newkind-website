@@ -1,0 +1,202 @@
+.fertility-document{background:var(--color-bg-primary)}
+.fertility-page{overflow:clip;background:var(--color-white)}
+.fp-header{grid-template-columns:170px minmax(0,1fr) 190px;width:min(1200px,calc(100% - 48px));top:24px}
+.fp-header nav{gap:34px}
+.fp-header nav>a{font-size:14px}
+.fp-hero{position:relative;height:100vh;min-height:0;overflow:hidden;background:#65001c url("assets/fertility/hero-background.png") center center/cover no-repeat;color:var(--color-white)}
+.fp-hero::before{content:none}
+.fp-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(72,0,24,.12),rgba(72,0,24,0) 58%);pointer-events:none}
+.fp-hero-content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:88px}
+.fp-hero-content>*{max-width:600px}
+.fp-kicker{margin:0 0 38px;font-size:18px;font-weight:700}
+.fp-hero h1{margin:0 0 24px;font-size:68px;line-height:1.08;letter-spacing:-2.4px;font-weight:600}
+.fp-hero-content>p:not(.fp-kicker){max-width:555px;margin:0;font-size:18px;line-height:1.5}
+.fp-hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px}
+.fp-watch{display:inline-flex;align-items:center;gap:13px;font-weight:600}
+.fp-play{position:relative;width:56px;height:56px;display:grid;place-items:center;border-radius:50%;background:var(--color-white);color:var(--color-accent)}
+.fp-play::before{content:"";width:20px;height:16px;border:2px solid currentColor;border-radius:5px}
+.fp-play::after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid currentColor;transform:translate(-35%,-50%)}
+.fp-stats{background:var(--color-primary);color:var(--color-white)}
+.fp-stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.fp-stats-grid>div{padding:28px 34px;border-right:1px solid #434857}
+.fp-stats-grid>div:first-child{border-left:0}
+.fp-stats-grid>div:last-child{border-right:0}
+.fp-stats span{color:var(--color-accent);font-size:12px;font-weight:700}
+.fp-stats p,.fp-stats p .anim-line-inner{margin:10px 0 0;color:var(--color-white);font-size:17px}
+.fp-stats p .anim-line-inner{margin:0}
+.fp-section{padding:110px 0}
+.fp-audience{background:var(--color-white)}
+.fp-audience-layout{display:grid;grid-template-columns:1.12fr .88fr;gap:30px;align-items:stretch}
+.fp-audience-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.fp-audience-grid>div{padding:38px 40px;border-radius:32px;background:var(--color-bg-primary)}
+.fp-audience-grid>div:last-child{background:var(--color-support-2)}
+.fp-audience h2{margin:0 0 20px;color:var(--color-primary);font-size:42px;line-height:1.18;font-weight:600;letter-spacing:-1.2px}
+.fp-audience p{margin:0;color:var(--color-secondary-dark);font-size:18px;line-height:1.7}
+.fp-trust{padding:38px 40px;border-radius:32px;background:var(--color-bg-secondary)}
+.fp-trust h3{margin:0 0 24px;color:var(--color-primary);font-size:24px}
+.fp-trust ul{display:grid;grid-template-columns:1fr;gap:16px;margin:0;padding:0;list-style:none}
+.fp-trust li{position:relative;min-height:91px;display:flex;align-items:center;padding:22px 24px 22px 58px;border:1px solid var(--color-secondary-light);border-radius:24px;background:var(--color-white);color:var(--color-primary);font-weight:600;line-height:1.45}
+.fp-trust li::before{content:"";position:absolute;top:50%;left:24px;width:12px;height:12px;border-radius:50%;background:var(--color-accent);transform:translateY(-50%)}
+.fp-good-news,.fp-testimonials,.fp-stories,.fp-care{background:var(--color-bg-primary)}
+.fp-section-head{margin-bottom:55px}
+.fp-section-head h2,.fp-centered-head h2{margin:0 0 15px;font-size:48px;line-height:1.15;font-weight:500;letter-spacing:-1.4px}
+.fp-section-head p,.fp-centered-head p{margin:0;color:var(--color-secondary-dark)}
+.fp-section-head-controls{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
+.fp-section-head-controls .carousel-controls{margin:0}
+.fp-track{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x proximity;scrollbar-width:none;overscroll-behavior-inline:contain;cursor:grab}
+.fp-track::-webkit-scrollbar{display:none}
+.fp-track>*{scroll-snap-align:start}
+.fp-track.is-dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.fp-good-news .fp-track{scroll-snap-type:x mandatory;padding-bottom:8px}
+.fp-news-card{flex:0 0 342px;overflow:hidden;border:1px solid var(--color-accent-tint);border-radius:30px;background:var(--color-white);color:var(--color-primary);transition:background-color .45s cubic-bezier(.22,.61,.36,1),border-color .45s cubic-bezier(.22,.61,.36,1),color .45s cubic-bezier(.22,.61,.36,1)}
+.fp-news-media{height:264px;overflow:hidden;border-radius:28px 28px 0 0}
+.fp-news-media span{position:absolute;z-index:3;top:16px;left:16px;padding:9px 14px;border-radius:999px;background:var(--color-accent);color:#fff;font-size:14px;transition:background-color .45s cubic-bezier(.22,.61,.36,1),color .45s cubic-bezier(.22,.61,.36,1)}
+.fp-news-card>p{min-height:92px;margin:0;padding:24px;color:inherit;font-size:17px;transition:color .45s cubic-bezier(.22,.61,.36,1)}
+.fp-news-card:hover,.fp-news-card.is-hovered{border-color:#2f3340;background:#2f3340;color:#fff}
+.fp-news-card:hover .fp-news-media span,.fp-news-card.is-hovered .fp-news-media span{background:#2f3340;color:#fff}
+.fp-programs{background:var(--color-white)}
+.fp-program-shell{padding:70px 60px;border-radius:45px;background:var(--color-primary);color:var(--color-white)}
+.fp-program-intro{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-bottom:58px}
+.fp-program-intro h2{margin:0;font-size:48px;line-height:1.1;font-weight:500}
+.fp-program-intro p{max-width:500px;margin:14px 0 0;color:#dadbe0;font-size:17px;line-height:1.55}
+.fp-program-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.fp-program-card{padding:32px;border-radius:34px;background:var(--color-primary-2)}
+.fp-program-card h3{margin:0 0 12px;font-size:24px}
+.fp-program-card>p{min-height:54px;margin:0 0 28px;color:#d6d7dc;line-height:1.55}
+.fp-program-card>.image-anime{height:380px;border-radius:24px}
+.fp-program-media{position:relative;display:block;overflow:hidden;isolation:isolate}
+.fp-program-media::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(36,40,51,.58);transform:scaleX(0);transform-origin:right center;transition:transform .52s cubic-bezier(.22,.61,.36,1);pointer-events:none}
+.fp-program-arrow{position:absolute;right:24px;bottom:24px;z-index:2;display:grid;width:58px;height:58px;place-items:center;border-radius:50%;background:var(--color-accent);color:#fff;opacity:0;transform:translateX(38px);transition:opacity .3s ease,transform .52s cubic-bezier(.22,.61,.36,1);cursor:pointer}
+.fp-program-arrow svg{display:block;width:29px;height:29px;fill:currentColor;transform:rotate(-45deg);transform-origin:center;transition:transform .52s cubic-bezier(.22,.61,.36,1)}
+.fp-program-card:hover .fp-program-media::before,.fp-program-card:focus-within .fp-program-media::before{transform:scaleX(1);transform-origin:left center}
+.fp-program-card:hover .fp-program-arrow,.fp-program-card:focus-within .fp-program-arrow{opacity:1;transform:translateX(0)}
+.fp-program-arrow:hover svg{transform:rotate(0deg)}
+.fp-program-media:focus-visible{outline:3px solid var(--color-accent-light);outline-offset:4px}
+.fp-video-card{position:relative;flex:0 0 344px;height:430px;border-radius:30px;color:#fff;background:#777}
+.fp-video-card>img{filter:brightness(.62)}
+.fp-video-card time{position:absolute;z-index:3;top:22px;right:24px}
+.fp-video-card>button{position:absolute;z-index:3;top:50%;left:50%;width:54px;height:54px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:#fff;color:#777;transform:translate(-50%,-50%);cursor:pointer}
+.fp-video-card>div{position:absolute;z-index:3;left:25px;right:25px;bottom:24px}
+.fp-video-card h3,.fp-video-card p{margin:0}
+.fp-video-card p{margin-top:5px;color:#fff}
+.fp-centered-head{margin-bottom:54px;text-align:center}
+.fp-concern-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.fp-concern{height:292px;padding:0;border:0;border-radius:30px;background:var(--color-bg-secondary);color:inherit;text-align:left;cursor:pointer}
+.fp-concern>img{width:100%;height:100%;object-fit:cover}
+.fp-concern>img{transform-origin:center;will-change:transform;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.fp-concern:hover>img,.fp-concern:focus-visible>img{transform:scale(1.1)}
+.fp-concern>span{position:absolute;z-index:3;left:16px;right:16px;bottom:16px;min-height:76px;display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 24px;border-radius:24px;background:rgba(36,40,51,.82);color:#fff;font-size:17px}
+.fp-concern b{width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:var(--color-accent);font-size:22px}
+.fp-concern b .material-symbol-arrow-right-alt{width:24px;height:24px;transform:rotate(-45deg);transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.fp-concern:hover b .material-symbol-arrow-right-alt,.fp-concern:focus-visible b .material-symbol-arrow-right-alt{transform:rotate(0deg)}
+.fp-concerns .fp-concern{height:340px}
+.fp-patient-card{position:relative;flex:0 0 520px;height:auto;aspect-ratio:16/9;overflow:hidden;border-radius:30px;background:#222;color:#fff}
+.fp-patient-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,28,.05) 35%,rgba(20,22,28,.82) 100%);opacity:1;transition:opacity .3s ease;pointer-events:none}
+.fp-video-story::after{background:rgba(36,40,51,.14)}
+.fp-patient-card>img,.fp-patient-card>video{width:100%;height:100%;object-fit:cover}
+.fp-patient-card>video{display:block;background:#111;transition:object-fit .3s ease}
+.fp-patient-card>button{position:absolute;z-index:3;top:50%;left:50%;width:54px;height:54px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:#fff;color:var(--color-accent);transform:translate(-50%,-50%);cursor:pointer}
+.fp-patient-card>div{position:absolute;z-index:3;left:24px;right:24px;bottom:24px}
+.fp-patient-card h3,.fp-patient-card p{margin:0}
+.fp-patient-card p{margin-top:5px;color:#fff}
+.fp-video-story.is-playing::after{opacity:0}
+.fp-video-story.is-playing>video{object-fit:contain}
+.fp-video-story.is-playing>button{opacity:.82}
+.fp-video-story.is-playing:hover>button,.fp-video-story.is-playing>button:focus-visible{opacity:1}
+.fp-how{background:var(--color-white)}
+.fp-section-cta{margin-top:42px;text-align:center}
+.fp-questions-cta{margin-top:64px;text-align:center}
+.fp-questions-cta h2{font-size:36px;margin:0 0 18px}
+.fp-questions-cta p{max-width:760px;margin:0 auto 28px;color:var(--color-secondary-dark)}
+.fp-how-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:58px 28px}
+.fp-how-card{min-width:0}
+.fp-how-media{height:360px;overflow:hidden;border-radius:30px;background:var(--color-bg-secondary)}
+.fp-how-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+.fp-how-card:hover .fp-how-media img,.fp-how-card:focus-within .fp-how-media img{transform:scale(1.055)}
+.fp-how-card h3{margin:24px 0 12px;color:var(--color-primary);font-size:24px;line-height:1.25;font-weight:700}
+.fp-how-card p{margin:0;color:var(--color-secondary-dark);font-size:17px;line-height:1.65}
+.fp-care-card{flex:0 0 360px}
+.fp-care-photo{height:480px;overflow:hidden;border-radius:30px;background:var(--color-support-dark)}
+.fp-care-photo img{object-position:center bottom}
+.fp-care-card .fp-care-photo>img{transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+.fp-care-card:hover .fp-care-photo>img,.fp-care-card:focus-within .fp-care-photo>img{transform:scale(1.055)}
+.fp-care-card h3{margin:22px 0 6px;font-size:20px}
+.fp-care-card p{margin:0 0 6px;color:var(--color-secondary-dark)}
+.fp-care-card>span{display:inline-block;margin-top:5px;padding:5px 12px;border-radius:999px;background:var(--color-bg-secondary)}
+.fp-faq{background:#fff}
+.fp-faq-grid{display:grid;grid-template-columns:.9fr 1.25fr;gap:120px}
+@media(min-width:761px){.fp-faq-grid>div:first-child{position:sticky;top:32px;align-self:start}}
+.fp-faq-grid h2{margin:0 0 28px;font-size:48px;line-height:1.16;font-weight:500;letter-spacing:-1.7px}
+.fp-faq-grid>div:first-child h2,.fp-questions-cta .btn,.fp-closing-actions .btn{opacity:1!important;visibility:visible!important}
+.fp-faq-grid>div:first-child h2{transform:none!important}
+.fp-faq-grid>div:first-child>p:last-child{max-width:370px;color:var(--color-secondary-dark)}
+.fp-faq-item{border-bottom:1px solid var(--color-secondary-light)}
+.fp-faq-item button{width:100%;min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 24px;border:0;background:transparent;text-align:left;font-weight:600;cursor:pointer}
+.fp-faq-answer{padding:0 24px 28px;color:var(--color-secondary-dark);line-height:1.6}
+.fp-faq-answer p{margin:0}
+.fp-closing{position:relative;min-height:clamp(680px,55.56vw,960px);display:flex;align-items:center;overflow:hidden;background:#344454 url("assets/fertility/closing-cta-coast.png") center/cover no-repeat;color:#fff}
+.fp-closing::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(29,37,50,.68) 0%,rgba(35,42,54,.48) 38%,rgba(35,42,54,.12) 70%)}
+.fp-closing-content{position:relative;z-index:2;width:min(88.9vw,1600px);margin-inline:auto}
+.fp-closing h2{max-width:760px;margin:0 0 34px;font-size:clamp(54px,4.15vw,80px);line-height:1.08;font-weight:600;letter-spacing:-2.4px}
+.fp-closing-copy{max-width:760px}
+.fp-closing-copy p{margin:0;font-size:clamp(17px,1.35vw,25px);line-height:1.55}
+.fp-closing-copy p+p{margin-top:30px}
+.fp-closing-actions{display:flex;gap:24px;margin-top:54px}
+.fp-closing-actions .btn{min-width:286px;min-height:64px}
+.fertility-document .call-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;place-content:center;justify-content:center;align-content:center;padding:32px;background:rgba(18,20,27,.68)}
+.fertility-document .call-dialog{width:min(900px,100%);height:auto;max-height:calc(100dvh - 64px);overflow-y:auto;padding:48px;border-radius:32px;background:#fff;box-shadow:0 24px 70px rgba(18,20,27,.28);animation:none}
+.fertility-document .call-form{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fertility-document .call-field-full{grid-column:1/-1}
+.fertility-document .call-modal-actions{grid-column:1/-1}
+.fertility-document .call-success-dialog{max-width:760px}
+.concern-modal{position:fixed;inset:0;z-index:1001;display:grid;place-items:center;padding:32px;background:rgba(18,20,27,.68)}
+.concern-dialog{position:relative;width:min(820px,100%);max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:58px 56px 52px;border-radius:32px;background:#fff;color:var(--color-primary);box-shadow:0 24px 70px rgba(18,20,27,.28)}
+.concern-panel h2{margin:0 72px 28px 0;color:var(--color-primary);font-size:34px;line-height:1.2;font-weight:600;letter-spacing:-1px}
+.concern-panel p{margin:0;color:var(--color-secondary-dark);font-size:18px;line-height:1.7}
+.concern-panel p+p{margin-top:22px}
+.concern-panel strong{color:var(--color-primary);font-weight:700}
+.fertility-page .image-anime::after,.fertility-page .image-anime-gradient::before{display:none}
+.fertility-page .image-anime>img:not(.story-avatar),.fertility-page .image-anime:hover>img:not(.story-avatar){transform:none;transition:none}
+body.fertility-document .fertility-page .fp-concern>img{transform-origin:center;will-change:transform;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+body.fertility-document .fertility-page .fp-concern:hover>img,body.fertility-document .fertility-page .fp-concern:focus-visible>img{transform:scale(1.1);transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+body.fertility-document .fertility-page .fp-program-card .fp-program-media>img{transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+body.fertility-document .fertility-page .fp-program-card:hover .fp-program-media>img,body.fertility-document .fertility-page .fp-program-card:focus-within .fp-program-media>img{transform:scale(1.055)}
+body.fertility-document .fertility-page .fp-news-card .fp-news-media>img{transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+body.fertility-document .fertility-page .fp-news-card:hover .fp-news-media>img,body.fertility-document .fertility-page .fp-news-card.is-hovered .fp-news-media>img{transform:scale(1.055)}
+body.fertility-document .fertility-page .fp-good-news .fp-news-card:hover,body.fertility-document .fertility-page .fp-good-news .fp-news-card.is-hovered{border-color:#2f3340;background:#2f3340;color:#fff}
+body.fertility-document .fertility-page .fp-good-news .fp-news-card:hover .fp-news-media span,body.fertility-document .fertility-page .fp-good-news .fp-news-card.is-hovered .fp-news-media span{background:#2f3340;color:#fff}
+body.fertility-document .fertility-page .fp-care-card .fp-care-photo>img{transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+body.fertility-document .fertility-page .fp-care-card:hover .fp-care-photo>img,body.fertility-document .fertility-page .fp-care-card:focus-within .fp-care-photo>img{transform:scale(1.055)}
+.fertility-document{--fp-gutter:max(24px,calc((100% - 1204px)/2))}
+.fertility-document .fp-good-news .fp-track,.fertility-document .fp-testimonials .fp-track,.fertility-document .fp-stories .fp-track,.fertility-document .fp-more-news .fp-track,.fertility-document .fp-care .fp-track{width:100%;max-width:none;margin:0;padding-inline:var(--fp-gutter) 24px;scroll-padding-left:var(--fp-gutter)}
+.fp-track img{user-select:none;-webkit-user-drag:none}
+.fp-track.is-dragging,.fp-track[data-auto-scroll]{scroll-behavior:auto;scroll-snap-type:none}
+.fp-more-news{background:var(--color-bg-primary)}
+.fp-message-card{flex:0 0 auto;height:360px;overflow:hidden;border-radius:30px;background:white}
+.fp-message-card img{width:auto;height:100%;max-width:none;object-fit:contain;object-position:top;transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+.fp-message-card:hover img,.fp-message-card:focus-within img{transform:scale(1.055)}
+.fp-auto-tools{display:flex;align-items:center;gap:14px}
+.fp-auto-toggle{width:48px;height:48px;border:0;border-radius:50%;background:var(--color-white);color:var(--color-primary);cursor:pointer;display:grid;place-items:center}
+@media(min-width:1441px){.fertility-document{--fp-gutter:max(calc((100% - 1600px)/2),8.3335%)}}
+@media(max-width:760px){.fertility-document{--fp-gutter:16px}.fp-message-card{flex-basis:auto;height:320px}.fp-auto-tools{gap:8px}}
+
+@media(min-width:1441px){
+  .fertility-document .shell,.fp-header{width:min(83.333vw,1600px);max-width:none}
+}
+
+@media(max-width:1024px){
+  .fp-header{grid-template-columns:100px minmax(0,1fr) 155px}.fp-header nav{gap:16px}.fp-header nav>a{font-size:12px}.fp-hero h1{font-size:58px}.fp-program-shell{padding:55px 40px}.fp-program-card>.image-anime{height:320px}.fp-care-card{flex-basis:320px}
+}
+@media(max-width:900px){
+  .fp-header{display:flex}.fp-header nav{gap:2px}.fp-hero{background-position:58% center;background-size:cover}.fp-hero::after{background:linear-gradient(90deg,rgba(82,0,27,.7),rgba(82,0,27,.12))}.fp-audience-layout{grid-template-columns:1fr}.fp-audience-grid{grid-template-columns:1fr;gap:24px}.fp-trust ul{grid-template-columns:repeat(2,minmax(0,1fr))}.fp-program-intro{gap:40px}.fp-concern{height:245px}.fp-how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fp-how-media{height:330px}.fp-faq-grid{gap:60px}.fertility-document .call-dialog{width:min(760px,100%)}
+}
+@media(max-width:760px){
+  .fp-header nav{gap:2px}.fp-hero{height:100vh;min-height:0;background-position:61% center;background-size:cover}.fp-hero::after{background:linear-gradient(90deg,rgba(82,0,27,.88),rgba(82,0,27,.42))}.fp-hero-content{padding-top:82px}.fp-hero h1{font-size:43px;letter-spacing:-1.5px}.fp-hero-content>p:not(.fp-kicker){font-size:16px}.fp-kicker{font-size:14px}.fp-hero-actions{align-items:flex-start;flex-direction:column}.fp-stats-grid{grid-template-columns:repeat(2,1fr)}.fp-stats-grid>div{padding:22px 18px;border-bottom:1px solid #434857}.fp-section{padding:76px 0}.fp-section-head-controls{align-items:flex-start}.fp-section-head h2,.fp-centered-head h2,.fp-faq-grid h2{font-size:36px}.fp-news-card{flex-basis:82vw}.fp-program-shell{width:calc(100% - 32px);padding:38px 20px;border-radius:32px}.fp-program-intro{grid-template-columns:1fr;gap:20px}.fp-program-intro h2{font-size:38px}.fp-program-grid{grid-template-columns:1fr}.fp-program-card{padding:22px}.fp-program-card>.image-anime{height:270px}.fp-video-card{flex-basis:82vw}.fp-patient-card{flex-basis:86vw}.fp-concern-grid{grid-template-columns:1fr 1fr;gap:14px}.fp-concern{height:210px}.fp-concern>span{left:10px;right:10px;bottom:10px;min-height:62px;padding-left:15px;font-size:14px}.fp-concern b{width:38px;height:38px}.fp-care-card{flex-basis:80vw}.fp-care-photo{height:410px}.fp-faq-grid{grid-template-columns:1fr;gap:40px}.fp-closing{min-height:700px;background-position:70% center}.fp-closing::after{background:linear-gradient(90deg,rgba(29,37,50,.74),rgba(29,37,50,.42))}.fp-closing-content{width:calc(100% - 32px)}.fp-closing h2{max-width:520px;font-size:40px;letter-spacing:-1.4px}.fp-closing-copy{max-width:520px}.fp-closing-copy p{font-size:16px}.fp-closing-actions{align-items:flex-start;flex-direction:column;gap:14px;margin-top:36px}.fp-closing-actions .btn{min-width:248px;min-height:56px}.fertility-document .call-modal{padding:16px}.fertility-document .call-dialog{max-height:calc(100dvh - 32px);padding:28px 22px;border-radius:32px}.fertility-document .call-form{grid-template-columns:1fr}.fertility-document .call-field-full,.fertility-document .call-modal-actions{grid-column:auto}.concern-modal{padding:16px}.concern-dialog{max-height:calc(100dvh - 32px);padding:44px 24px 30px;border-radius:32px}.concern-panel h2{margin-right:64px;font-size:28px}.concern-panel p{font-size:16px;line-height:1.6}
+}
+@media(max-width:760px){.fp-concerns .fp-concern{height:260px}}
+@media(max-width:600px){.fp-how-grid{grid-template-columns:1fr;gap:46px}.fp-how-media{height:300px}.fp-how-card h3{margin-top:20px;font-size:22px}.fp-how-card p{font-size:16px}}
+@media(max-width:600px){.fp-audience-grid>div,.fp-trust{padding:30px 24px}.fp-audience h2{font-size:34px}.fp-audience p{font-size:16px}.fp-trust ul{grid-template-columns:1fr}.fp-trust li{min-height:88px}}
+@media(hover:none){.fp-program-arrow{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.fp-program-media::before,.fp-program-arrow,.fp-program-arrow svg,.fp-news-card,.fp-news-card>p,.fp-news-media span,.fp-concern>img,.fp-how-media img,.fp-message-card img,.fp-care-photo>img,body.fertility-document .fertility-page .fp-program-card .fp-program-media>img,body.fertility-document .fertility-page .fp-news-card .fp-news-media>img{transition:none}}
+@media(max-width:430px){.fp-hero h1{font-size:39px}.fp-concern-grid{grid-template-columns:1fr}.fp-concern{height:240px}.fp-concerns .fp-concern{height:280px}.fp-section-head-controls .carousel-controls{display:none}.fp-video-card{flex-basis:86vw}.fp-patient-card{flex-basis:90vw}.fp-care-card{flex-basis:84vw}}
+@media(prefers-reduced-motion:reduce){.fp-track{scroll-behavior:auto}}

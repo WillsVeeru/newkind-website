@@ -9,6 +9,7 @@
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
   document.documentElement.classList.add('gsap-active');
 
   const originalText = new Map();
@@ -74,14 +75,20 @@
     '.step h3', '.step p',
     '.section-heading h2', '.section-heading > p:last-child',
     '.why-column h3', '.why-column p',
-    '.story-intro h3', '.story-intro > p:last-child',
-    '.testimonial h3', '.testimonial p',
-    '.care-card h3', '.care-card p',
-    '.news-card h3', '.news-card > p',
     '.journal-heading h2', '.journal-card h3', '.journal-card p',
     '.faq-grid h2', '.faq-grid > div:first-child > p:last-child',
     '.final-content h2', '.final-content > p:not(.eyebrow)',
-    '.footer-brand p'
+    '.footer-brand p',
+    '.fp-hero h1', '.fp-hero-content > p',
+    '.fp-stats-grid p',
+    '.fp-audience h2', '.fp-audience p', '.fp-trust li',
+    '.fp-section-head h2', '.fp-section-head p',
+    '.fp-centered-head h2', '.fp-centered-head p',
+    '.fp-program-intro h2', '.fp-program-intro p',
+    '.fp-program-card h3', '.fp-program-card > p',
+    '.fp-how-card h3', '.fp-how-card p',
+    '.fp-questions-cta h2', '.fp-questions-cta p',
+    '.fp-closing h2', '.fp-closing-copy p'
   ];
 
   const selectWithin = (root, selector) => [...root.querySelectorAll(selector)];
@@ -151,38 +158,64 @@
   const initializeAnimations = () => {
     document.querySelectorAll(lineTargets.join(',')).forEach(splitIntoVisualLines);
 
-    const heroElements = [
-      ...document.querySelectorAll('.site-header, .site-header nav > *, .header-cta, .hero-shade, .hero .eyebrow, .hero .anim-line-inner, .hero-actions > *')
-    ];
-    gsap.set(heroElements, { transition: 'none' });
-    const heroTimeline = gsap.timeline({
-      defaults: { ease: 'power3.out' },
-      onComplete: () => gsap.set(heroElements, { clearProps: 'transition' })
-    });
-    heroTimeline
-      .fromTo('.site-header', { autoAlpha: 0, xPercent: -50, y: -22 }, { autoAlpha: 1, xPercent: -50, y: 0, duration: .75 })
-      .from('.site-header nav > *, .header-cta', { autoAlpha: 0, y: -8, duration: .45, stagger: .045 }, '-=.42')
-      .from('.hero-shade', { opacity: 0, duration: 1.15 }, 0)
-      .from('.hero .eyebrow', { autoAlpha: 0, y: 16, duration: .5 }, .2)
-      .from('.hero .anim-line-inner', { autoAlpha: 0, yPercent: 112, duration: .82, stagger: .085 }, .28)
-      .from('.hero-actions > *', { autoAlpha: 0, y: 18, scale: .98, duration: .58, stagger: .1 }, '-=.38');
-    animations.push(heroTimeline);
+    const landingHero = document.querySelector('.hero');
+    const fertilityHero = document.querySelector('.fp-hero');
+    const heroRoot = landingHero || fertilityHero;
+    if (heroRoot) {
+      const heroElements = [
+        ...document.querySelectorAll('.site-header, .site-header nav > *, .header-cta, .hero-shade, .hero .eyebrow, .hero .anim-line-inner, .hero-actions > *, .fp-hero .anim-line-inner, .fp-hero-actions > *, .fp-watch')
+      ];
+      gsap.set(heroElements, { transition: 'none' });
+      const heroTimeline = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        onComplete: () => gsap.set(heroElements, { clearProps: 'transition' })
+      });
+      heroTimeline
+        .fromTo('.site-header', { autoAlpha: 0, xPercent: -50, y: -22 }, { autoAlpha: 1, xPercent: -50, y: 0, duration: .75 })
+        .from('.site-header nav > *, .header-cta', { autoAlpha: 0, y: -8, duration: .45, stagger: .045 }, '-=.42');
+      if (landingHero) {
+        heroTimeline
+          .from('.hero-shade', { opacity: 0, duration: 1.15 }, 0)
+          .from('.hero .eyebrow', { autoAlpha: 0, y: 16, duration: .5 }, .2)
+          .from('.hero .anim-line-inner', { autoAlpha: 0, yPercent: 112, duration: .82, stagger: .085 }, .28)
+          .from('.hero-actions > *', { autoAlpha: 0, y: 18, scale: .98, duration: .58, stagger: .1 }, '-=.38');
+      } else {
+        heroTimeline
+          .from('.fp-hero', { opacity: .82, duration: 1.05 }, 0)
+          .from('.fp-hero .anim-line-inner', { autoAlpha: 0, yPercent: 112, duration: .78, stagger: .075 }, .22)
+          .from('.fp-hero-actions > *', { autoAlpha: 0, y: 18, scale: .98, duration: .56, stagger: .1 }, '-=.34');
+      }
+      animations.push(heroTimeline);
+    }
 
     addSectionTimeline('.programs', { cards: '.program-card', controls: '.program-card a' });
     addSectionTimeline('.about', { media: '.about-main, .about-inset', controls: '.btn' });
     addSectionTimeline('.how', { media: '.how-background', cards: '.step' });
     addSectionTimeline('.why', { media: '.why-media', cards: '.why-column article' });
-    addSectionTimeline('.stories', { cards: '.story-track > *', controls: '.story-tabs, .carousel-controls' });
-    addSectionTimeline('.care', { cards: '.care-card', controls: '.care-controls' });
-    addSectionTimeline('.news', { cards: '.news-card', controls: '.carousel-controls' });
+    addSectionTimeline('.stories', { controls: '.story-tabs, .carousel-controls' });
+    addSectionTimeline('.care', { controls: '.care-controls' });
+    addSectionTimeline('.news', { controls: '.carousel-controls' });
     addSectionTimeline('.journal', { cards: '.journal-card', controls: '.journal-heading > a' });
     addSectionTimeline('.faqs', { cards: '.accordion button' });
     addSectionTimeline('.final-cta', { media: '.final-cta > img', controls: '.btn' });
     addSectionTimeline('footer', { cards: '.footer-top > *, .footer-programs > *', controls: '.copyright' });
 
+    addSectionTimeline('.fp-stats', { cards: '.fp-stats-grid > div' });
+    addSectionTimeline('.fp-audience', { cards: '.fp-audience-grid > div, .fp-trust li' });
+    addSectionTimeline('.fp-good-news', { controls: '.fp-auto-tools' });
+    addSectionTimeline('.fp-programs', { cards: '.fp-program-card', media: '.fp-program-media', controls: '.fp-program-arrow' });
+    addSectionTimeline('.fp-testimonials', { controls: '.carousel-controls' });
+    addSectionTimeline('.fp-concerns', { cards: '.fp-concern' });
+    addSectionTimeline('.fp-stories', { controls: '.carousel-controls' });
+    addSectionTimeline('.fp-how', { cards: '.fp-how-card', media: '.fp-how-media', controls: '.fp-section-cta' });
+    addSectionTimeline('.fp-more-news', { controls: '.fp-auto-tools' });
+    addSectionTimeline('.fp-care', { controls: '.carousel-controls' });
+    addSectionTimeline('.fp-faq', { cards: '.fp-faq-item' });
+    addSectionTimeline('.fp-closing', { start: 'top 82%' });
+
     const media = gsap.matchMedia();
     media.add('(min-width: 761px)', () => {
-      const parallaxAnimations = [
+      const parallaxAnimations = landingHero ? [
         gsap.to('.hero', {
           backgroundPosition: '50% 58%',
           ease: 'none',
@@ -203,7 +236,7 @@
           ease: 'none',
           scrollTrigger: { trigger: '.how', start: 'top bottom', end: 'bottom top', scrub: 1 }
         }),
-        gsap.fromTo('.why-grid > img', { yPercent: -3 }, {
+        gsap.fromTo('.why-media', { yPercent: -3 }, {
           yPercent: 3,
           ease: 'none',
           scrollTrigger: { trigger: '.why', start: 'top bottom', end: 'bottom top', scrub: 1 }
@@ -214,8 +247,23 @@
           ease: 'none',
           scrollTrigger: { trigger: '.final-cta', start: 'top bottom', end: 'bottom top', scrub: 1 }
         })
-      ];
-      animations.push(...parallaxAnimations);
+      ] : [];
+
+      if (fertilityHero) {
+        const fertilityParallax = [
+          gsap.to('.fp-hero', {
+            backgroundPosition: '54% 58%',
+            ease: 'none',
+            scrollTrigger: { trigger: '.fp-hero', start: 'top top', end: 'bottom top', scrub: .8 }
+          }),
+          gsap.to('.fp-closing', {
+            backgroundPosition: '50% 55%',
+            ease: 'none',
+            scrollTrigger: { trigger: '.fp-closing', start: 'top bottom', end: 'bottom top', scrub: 1 }
+          })
+        ];
+        parallaxAnimations.push(...fertilityParallax);
+      }
       return () => parallaxAnimations.forEach((animation) => animation.kill());
     });
     animations.push(media);
