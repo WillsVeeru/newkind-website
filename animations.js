@@ -2,8 +2,10 @@
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const navigationType = performance.getEntriesByType('navigation')[0]?.type;
+  const isReload = navigationType === 'reload';
 
-  if (!gsap || !ScrollTrigger || reduceMotion) {
+  if (!gsap || !ScrollTrigger || reduceMotion || isReload) {
     document.documentElement.classList.add('motion-safe-fallback');
     return;
   }
@@ -275,13 +277,7 @@
   ready.then(initializeAnimations);
 
   window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
-  window.addEventListener('pagehide', () => {
-    animations.forEach((animation) => animation.revert?.() || animation.kill?.());
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    originalText.forEach((html, element) => {
-      element.innerHTML = html;
-      element.removeAttribute('aria-label');
-      delete element.dataset.linesSplit;
-    });
-  }, { once: true });
+  // Static page navigation discards this document, so manual teardown during
+  // pagehide is unnecessary and can re-hide content while the browser restores
+  // a refreshed page at its previous scroll position.
 })();
