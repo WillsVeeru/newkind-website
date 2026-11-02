@@ -133,19 +133,21 @@ body.fertility-document .fp-concerns>.shell{width:100%;max-width:none;margin-inl
 .fp-concerns>.fp-centered-head{position:relative;margin:0 0 68px;text-align:center}
 .fp-concerns>.fp-centered-head h2{margin:0;color:var(--color-white);font-size:48px;line-height:1.12;font-weight:500;letter-spacing:-1.6px}
 .fp-concerns>.fp-centered-head p{margin:22px 0 0;color:#d5d2d4;font-size:17px;line-height:1.5}
-.fp-concern-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,.865fr) minmax(0,1fr);align-items:start;gap:16px;padding:0}
+.fp-concern-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,.865fr) minmax(0,1fr);align-items:stretch;gap:16px;padding:0}
 .fp-concern-column{display:flex;min-width:0;flex-direction:column;gap:16px}
-.fp-concern{position:relative;height:auto!important;min-height:0;padding:24px;border:1px solid rgba(193,106,161,.2);border-radius:30px;background:var(--color-primary-2);color:var(--color-white);text-align:left;cursor:pointer;box-shadow:none}
+.fp-concern{position:relative;height:auto!important;min-height:0;padding:24px;border:1px solid rgba(193,106,161,.2);border-radius:30px;background:var(--color-primary-2);color:var(--color-white);text-align:left;cursor:default;box-shadow:none}
 .fp-concern>img{display:none}
 .fp-concern>span{position:static;min-height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 1fr;gap:28px 20px;padding:0;border-radius:0;background:transparent;color:inherit}
 .fp-concern-title{grid-column:1;grid-row:1;font-size:22px;line-height:1.18;font-weight:700}
 .fp-concern-number{grid-column:2;grid-row:1;color:var(--color-accent);font-size:15px;font-weight:700}
 .fp-concern-summary{grid-column:1/-1;grid-row:2;color:#d5d2d4;font-size:16px;line-height:1.5}
-.fp-concern:focus-visible{outline:3px solid var(--color-accent-light);outline-offset:4px}
-.fp-concern-center{z-index:1;display:grid;height:668px;place-items:center;overflow:hidden}
-.fp-concern-center img{display:block;width:145%;max-width:none;height:100%;object-fit:contain;mix-blend-mode:screen}
-@media(max-width:1024px){.fp-concerns{width:calc(100% - 32px);margin:86px auto;padding:56px 36px;border-radius:40px}.fp-concerns>.fp-centered-head{margin-bottom:46px}.fp-concerns>.fp-centered-head h2{font-size:44px}.fp-concern-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.fp-concern-column{gap:20px}.fp-concern-column-left{grid-column:1;grid-row:2}.fp-concern-column-right{grid-column:2;grid-row:2}.fp-concern-column-center{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:20px}.fp-concern-center{height:520px}.fp-concern-center img{width:100%}.fp-concern{padding:28px}}
-@media(max-width:600px){.fp-concerns{width:calc(100% - 24px);margin:70px auto;padding:42px 20px;border-radius:32px}.fp-concerns>.fp-centered-head{margin-bottom:34px}.fp-concerns>.fp-centered-head h2{font-size:36px;letter-spacing:-1px}.fp-concerns>.fp-centered-head p{margin-top:14px;font-size:15px}.fp-concern-grid{grid-template-columns:1fr}.fp-concern-column-left,.fp-concern-column-right,.fp-concern-column-center{grid-column:1;grid-row:auto}.fp-concern-column-center{grid-row:1;display:flex}.fp-concern-center{height:480px}.fp-concern{padding:26px;border-radius:24px}.fp-concern-title{font-size:20px}.fp-concern-summary{font-size:15px}}
+.fp-concern:focus-visible{outline:none}
+.fp-concern-center{z-index:1;display:grid;place-items:center;overflow:visible}
+.fp-concern-center img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;mix-blend-mode:screen}
+.fp-concern-column-center>.fp-concern{margin-top:auto}
+@media(min-width:1025px){.fp-concern-grid{grid-template-rows:auto auto auto}.fp-concern-column{display:contents}.fp-concern-column-left>.fp-concern[data-concern-key="low-amh"]{grid-column:1;grid-row:1}.fp-concern-column-left>.fp-concern[data-concern-key="miscarriages"]{grid-column:1;grid-row:2}.fp-concern-column-left>.fp-concern[data-concern-key="failed-iui-ivf"]{grid-column:1;grid-row:3}.fp-concern-column-right>.fp-concern[data-concern-key="pcod"]{grid-column:3;grid-row:1}.fp-concern-column-right>.fp-concern[data-concern-key="unexplained-infertility"]{grid-column:3;grid-row:2}.fp-concern-column-right>.fp-concern[data-concern-key="sperm-metrics"]{grid-column:3;grid-row:3}.fp-concern-column-center>.fp-concern-center{grid-column:2;grid-row:1/span 2;align-self:stretch}.fp-concern-column-center>.fp-concern[data-concern-key="weight-concerns"]{grid-column:2;grid-row:3;margin-top:0}}
+@media(max-width:1024px){.fp-concerns{width:calc(100% - 32px);margin:86px auto;padding:56px 36px;border-radius:40px}.fp-concerns>.fp-centered-head{margin-bottom:46px}.fp-concerns>.fp-centered-head h2{font-size:44px}.fp-concern-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.fp-concern-column{gap:20px}.fp-concern-column-left{grid-column:1;grid-row:2}.fp-concern-column-right{grid-column:2;grid-row:2}.fp-concern-column-center{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:20px}.fp-concern-center img{width:100%}.fp-concern{padding:28px}}
+@media(max-width:600px){.fp-concerns{width:calc(100% - 24px);margin:70px auto;padding:42px 20px;border-radius:32px}.fp-concerns>.fp-centered-head{margin-bottom:34px}.fp-concerns>.fp-centered-head h2{font-size:36px;letter-spacing:-1px}.fp-concerns>.fp-centered-head p{margin-top:14px;font-size:15px}.fp-concern-grid{grid-template-columns:1fr}.fp-concern-column-left,.fp-concern-column-right,.fp-concern-column-center{grid-column:1;grid-row:auto}.fp-concern-column-center{grid-row:1;display:flex}.fp-concern{padding:26px;border-radius:24px}.fp-concern-title{font-size:20px}.fp-concern-summary{font-size:15px}}
 .fp-patient-card{position:relative;flex:0 0 520px;height:auto;aspect-ratio:16/9;overflow:hidden;border-radius:30px;background:#222;color:#fff}
 .fp-patient-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,28,.05) 35%,rgba(20,22,28,.82) 100%);opacity:1;transition:opacity .3s ease;pointer-events:none}
 .fp-video-story::after{background:rgba(36,40,51,.14)}
@@ -165,13 +167,13 @@ body.fertility-document .fp-concerns>.shell{width:100%;max-width:none;margin-inl
 .fp-questions-cta h2{font-size:36px;margin:0 0 18px}
 .fp-questions-cta p{max-width:760px;margin:0 auto 28px;color:var(--color-secondary-dark)}
 .fp-how-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:58px 28px}
-.fp-how-card{min-width:0}
+.fp-how-card{display:flex;min-width:0;flex-direction:column}
 .fp-how-media{height:360px;overflow:hidden;border-radius:30px;background:var(--color-bg-secondary)}
 .fp-how-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,.61,.36,1)}
 .fp-how-card:hover .fp-how-media img,.fp-how-card:focus-within .fp-how-media img{transform:scale(1.055)}
 .fp-how-card h3{margin:24px 0 12px;color:var(--color-primary);font-size:24px;line-height:1.25;font-weight:700}
 .fp-how-card p{margin:0;color:var(--color-secondary-dark);font-size:17px;line-height:1.65}
-.fp-how-more{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:0;border:0;background:transparent;color:var(--color-accent);font:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:color .25s ease}
+.fp-how-more{display:inline-flex;align-items:center;gap:10px;width:max-content;margin-top:auto;padding:20px 0 0;border:0;background:transparent;color:var(--color-accent);font:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:color .25s ease}
 .fp-how-more .material-symbol-arrow-right-alt{width:23px;height:23px;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
 .fp-how-more:hover,.fp-how-more:focus-visible{color:var(--color-accent-hover)}
 .fp-how-more:hover .material-symbol-arrow-right-alt,.fp-how-more:focus-visible .material-symbol-arrow-right-alt{transform:translateX(8px)}
