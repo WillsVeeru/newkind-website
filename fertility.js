@@ -680,6 +680,13 @@ if (concernGrid) {
   centerColumn.append(center, concernGrid.querySelector('[data-concern-open="weight-concerns"]'));
   ['pcod', 'unexplained-infertility', 'sperm-metrics'].forEach((key) => rightColumn.appendChild(concernGrid.querySelector(`[data-concern-open="${key}"]`)));
   concernGrid.replaceChildren(leftColumn, centerColumn, rightColumn);
+  concernGrid.querySelectorAll('.fp-concern').forEach((card) => {
+    const staticCard = document.createElement('article');
+    staticCard.className = card.className;
+    staticCard.dataset.concernKey = card.dataset.concernOpen || '';
+    staticCard.replaceChildren(...card.childNodes);
+    card.replaceWith(staticCard);
+  });
 }
 const concernPanels = [...document.querySelectorAll('[data-concern-panel]')];
 const concernMedia = document.createElement('figure');
@@ -711,7 +718,6 @@ const openConcernModal = (trigger) => {
   document.body.classList.add('call-modal-open');
   requestAnimationFrame(() => concernModal.querySelector('[data-close-concern]')?.focus());
 };
-document.querySelectorAll('[data-concern-open]').forEach((trigger) => trigger.addEventListener('click', () => openConcernModal(trigger)));
 document.querySelectorAll('[data-close-concern]').forEach((button) => button.addEventListener('click', closeConcernModal));
 concernModal?.addEventListener('click', (event) => { if (event.target === concernModal) closeConcernModal(); });
 
