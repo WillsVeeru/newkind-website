@@ -511,13 +511,15 @@ howModal.className = 'how-modal';
 howModal.dataset.howModal = '';
 howModal.hidden = true;
 howModal.setAttribute('aria-hidden', 'true');
-howModal.innerHTML = '<section class="how-dialog" role="dialog" aria-modal="true" aria-labelledby="how-dialog-title"><button class="call-dialog-close" type="button" data-close-how aria-label="Close program details"></button><figure class="how-dialog-media"><img alt=""></figure><article class="how-dialog-content"><h2 id="how-dialog-title"></h2><div data-how-content></div></article></section>';
+howModal.innerHTML = '<section class="how-dialog" role="dialog" aria-modal="true" aria-labelledby="how-dialog-title"><button class="how-dialog-close" type="button" data-close-how aria-label="Close program details"></button><figure class="how-dialog-media"><img alt=""></figure><article class="how-dialog-content"><h2 id="how-dialog-title"></h2><div data-how-content></div><aside class="how-dialog-note" data-how-note hidden><span class="how-note-icon" aria-hidden="true">i</span><p data-how-note-copy></p></aside></article></section>';
 document.body.appendChild(howModal);
 
 const howDialog = howModal.querySelector('.how-dialog');
 const howDialogImage = howModal.querySelector('.how-dialog-media img');
 const howDialogTitle = howModal.querySelector('#how-dialog-title');
 const howDialogContent = howModal.querySelector('[data-how-content]');
+const howDialogNote = howModal.querySelector('[data-how-note]');
+const howDialogNoteCopy = howModal.querySelector('[data-how-note-copy]');
 let howLastTrigger = null;
 const closeHowModal = () => {
   if (howModal.hidden) return;
@@ -534,7 +536,9 @@ const openHowModal = (trigger) => {
   howDialogImage.src = sourceImage?.currentSrc || sourceImage?.src || '';
   howDialogImage.alt = sourceImage?.alt ? `${sourceImage.alt} details` : '';
   howDialogTitle.textContent = definition.title;
-  howDialogContent.innerHTML = `<p class="how-dialog-lead">${definition.lead}</p><ol>${definition.points.map((point) => `<li>${point}</li>`).join('')}</ol>${definition.note ? `<p class="how-dialog-note">${definition.note}</p>` : ''}`;
+  howDialogContent.innerHTML = `<p class="how-dialog-lead">${definition.lead}</p><ol>${definition.points.map((point) => `<li>${point}</li>`).join('')}</ol>`;
+  howDialogNote.hidden = !definition.note;
+  howDialogNoteCopy.innerHTML = definition.note || '';
   howLastTrigger = trigger;
   howModal.hidden = false;
   howModal.setAttribute('aria-hidden', 'false');
