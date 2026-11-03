@@ -1,6 +1,7 @@
 .fertility-document{background:var(--color-bg-primary)}
 .fertility-page{overflow:clip;background:var(--color-white)}
-.fp-header{grid-template-columns:170px minmax(0,1fr) 190px;width:min(1200px,calc(100% - 48px));top:24px}
+.fp-header{position:fixed;grid-template-columns:170px minmax(0,1fr) 190px;width:min(1200px,calc(100% - 48px));top:24px;transition:top .28s cubic-bezier(.2,.7,.3,1)}
+.fp-header.is-scroll-hidden{top:-100px;pointer-events:none}
 .fp-header nav{gap:34px}
 .fp-header nav>a{font-size:14px}
 .fp-hero{position:relative;height:100vh;min-height:0;overflow:hidden;background:#65001c url("assets/fertility/hero-background.png") center center/cover no-repeat;color:var(--color-white)}
@@ -168,6 +169,13 @@ body.fertility-document .fp-concerns>.shell{width:100%;max-width:none;margin-inl
 .fp-faq-grid>div:first-child>p:last-child{max-width:370px;color:var(--color-secondary-dark)}
 .fp-faq-item{border-bottom:1px solid var(--color-secondary-light)}
 .fp-faq-item button{width:100%;min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 24px;border:0;background:transparent;text-align:left;font-weight:600;cursor:pointer}
+.fp-faq-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid #ead4e1;border-radius:50%;background:#faf0f6;color:#a95175;transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s}
+.fp-faq-icon svg{display:block;width:24px;height:24px;fill:currentColor;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+.fp-faq-item button:hover .fp-faq-icon,.fp-faq-item button:focus-visible .fp-faq-icon{background:#f1dce8;border-color:var(--color-accent)}
+.fp-faq-item button[aria-expanded="true"] .fp-faq-icon{background:var(--color-accent);border-color:var(--color-accent);color:#fff;box-shadow:0 4px 12px rgba(169,81,117,.16)}
+.fp-faq-item button[aria-expanded="true"] .fp-faq-icon svg{transform:rotate(180deg)}
+@media(max-width:760px){.fp-faq-icon{flex-basis:36px;width:36px;height:36px}.fp-faq-icon svg{width:22px;height:22px}}
+@media(prefers-reduced-motion:reduce){.fp-header,.fp-faq-icon,.fp-faq-icon svg{transition:none}}
 .fp-faq-answer{padding:0 24px 28px;color:var(--color-secondary-dark);line-height:1.6}
 .fp-faq-answer p{margin:0}
 .fp-closing{position:relative;min-height:clamp(680px,55.56vw,960px);display:flex;align-items:center;overflow:hidden;background:#344454 url("assets/fertility/closing-cta-coast.png") center/cover no-repeat;color:#fff}

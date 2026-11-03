@@ -10,6 +10,34 @@ mainNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', 
   menuToggle?.setAttribute('aria-expanded', 'false');
 }));
 
+const fertilityHeader = document.querySelector('.fp-header');
+if (fertilityHeader) {
+  let lastHeaderScroll = Math.max(0, window.scrollY);
+  let headerScrollPending = false;
+  const updateHeaderVisibility = () => {
+    headerScrollPending = false;
+    const currentScroll = Math.max(0, Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
+    const keyboardFocus = fertilityHeader.contains(document.activeElement) && document.activeElement.matches(':focus-visible');
+    if (currentScroll <= 80 || mainNav?.classList.contains('open') || document.body.classList.contains('call-modal-open') || keyboardFocus) {
+      fertilityHeader.classList.remove('is-scroll-hidden');
+      lastHeaderScroll = currentScroll;
+      return;
+    }
+    if (Math.abs(currentScroll - lastHeaderScroll) < 8) return;
+    fertilityHeader.classList.toggle('is-scroll-hidden', currentScroll > lastHeaderScroll);
+    lastHeaderScroll = currentScroll;
+  };
+  window.addEventListener('scroll', () => {
+    if (headerScrollPending) return;
+    headerScrollPending = true;
+    requestAnimationFrame(updateHeaderVisibility);
+  }, { passive: true });
+  fertilityHeader.addEventListener('focusin', () => {
+    fertilityHeader.classList.remove('is-scroll-hidden');
+    lastHeaderScroll = Math.max(0, window.scrollY);
+  });
+}
+
 document.querySelectorAll('[data-open-call]').forEach((cta) => {
   const labelNode = [...cta.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
   if (labelNode) labelNode.textContent = 'Book discover a call ';
@@ -141,14 +169,22 @@ storyVideos.forEach((card) => {
   video.addEventListener('ended', syncStoryVideo);
 });
 
-document.querySelectorAll('.fp-faq-item button').forEach((button) => button.addEventListener('click', () => {
+document.querySelectorAll('.fp-faq-item button').forEach((button, index) => {
   const item = button.closest('.fp-faq-item');
   const answer = item.querySelector('.fp-faq-answer');
-  const expanded = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', String(!expanded));
-  button.querySelector('span').textContent = expanded ? '⌄' : '⌃';
-  if (answer.textContent.trim()) answer.hidden = expanded;
-}));
+  const icon = button.querySelector('span');
+  icon.className = 'fp-faq-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  // Google Material Icons: expand_more (Apache-2.0).
+  icon.innerHTML = '<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>';
+  answer.id ||= `fp-faq-answer-${index + 1}`;
+  button.setAttribute('aria-controls', answer.id);
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    if (answer.textContent.trim()) answer.hidden = expanded;
+  });
+});
 
 // Continuous right-to-left movement; interaction and reduced motion take priority.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
