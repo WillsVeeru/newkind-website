@@ -317,7 +317,7 @@ howModal.className = 'how-modal';
 howModal.dataset.howModal = '';
 howModal.hidden = true;
 howModal.setAttribute('aria-hidden', 'true');
-howModal.innerHTML = '<section class="how-dialog" role="dialog" aria-modal="true" aria-labelledby="how-dialog-title"><button class="how-dialog-close" type="button" data-close-how aria-label="Close program details"></button><figure class="how-dialog-media"><img alt=""></figure><article class="how-dialog-content"><h2 id="how-dialog-title"></h2><div data-how-content></div><aside class="how-dialog-note" data-how-note hidden><span class="how-note-icon" aria-hidden="true">i</span><p data-how-note-copy></p></aside></article></section>';
+howModal.innerHTML = '<section class="how-dialog" role="dialog" aria-modal="true" aria-labelledby="how-dialog-title"><button class="how-dialog-close" type="button" data-close-how aria-label="Close program details"></button><figure class="how-dialog-media"><img alt=""></figure><div class="how-dialog-panel"><article class="how-dialog-content"><h2 id="how-dialog-title"></h2><div data-how-content></div><aside class="how-dialog-note" data-how-note hidden><span class="how-note-icon" aria-hidden="true">i</span><p data-how-note-copy></p></aside></article><nav class="how-dialog-nav" aria-label="Program details navigation"><button class="how-nav-button" type="button" data-how-previous><svg class="material-symbol-arrow-right-alt how-nav-arrow-previous" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg>Previous</button><span class="how-nav-count" data-how-count role="status" aria-live="polite" aria-atomic="true"></span><button class="how-nav-button" type="button" data-how-next>Next<svg class="material-symbol-arrow-right-alt" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg></button></nav></div></section>';
 document.body.appendChild(howModal);
 
 const howDialog = howModal.querySelector('.how-dialog');
@@ -326,6 +326,10 @@ const howDialogTitle = howModal.querySelector('#how-dialog-title');
 const howDialogContent = howModal.querySelector('[data-how-content]');
 const howDialogNote = howModal.querySelector('[data-how-note]');
 const howDialogNoteCopy = howModal.querySelector('[data-how-note-copy]');
+const howDialogCount = howModal.querySelector('[data-how-count]');
+const howPreviousButton = howModal.querySelector('[data-how-previous]');
+const howNextButton = howModal.querySelector('[data-how-next]');
+let howCurrentIndex = 0;
 let howLastTrigger = null;
 const closeHowModal = () => {
   if (howModal.hidden) return;
@@ -334,17 +338,36 @@ const closeHowModal = () => {
   document.body.classList.remove('call-modal-open');
   howLastTrigger?.focus();
 };
-const openHowModal = (trigger) => {
-  const definition = howProgramDefinitions.find((item) => item.key === trigger.dataset.howOpen);
-  const card = trigger.closest('.fp-how-card');
+const renderHowProgram = (index) => {
+  if (index < 0 || index >= howProgramDefinitions.length) return;
+  const nextIndex = index;
+  const definition = howProgramDefinitions[nextIndex];
+  const card = howCards.find((item) => item.dataset.howCard === definition.key);
   if (!definition || !card) return;
+  howCurrentIndex = nextIndex;
   const sourceImage = card.querySelector('.fp-how-media img');
   howDialogImage.src = sourceImage?.currentSrc || sourceImage?.src || '';
   howDialogImage.alt = sourceImage?.alt ? `${sourceImage.alt} details` : '';
   howDialogTitle.textContent = definition.title;
-  howDialogContent.innerHTML = `<p class="how-dialog-lead">${definition.lead}</p><ol>${definition.points.map((point) => `<li>${point}</li>`).join('')}</ol>`;
+  howDialogContent.innerHTML = `<p class="how-dialog-lead">${definition.lead}</p><ol role="list">${definition.points.map((point, index) => `<li><span class="how-step-number" aria-hidden="true">${index + 1}</span><span class="how-step-text">${point}</span></li>`).join('')}</ol>`;
   howDialogNote.hidden = !definition.note;
   howDialogNoteCopy.innerHTML = definition.note || '';
+  howDialogCount.replaceChildren();
+  const announcement = document.createElement('span');
+  announcement.className = 'how-nav-announcement';
+  announcement.textContent = `${definition.title}. `;
+  howDialogCount.append(announcement, `${nextIndex + 1} of ${howProgramDefinitions.length}`);
+  const focusedButton = document.activeElement;
+  howPreviousButton.disabled = nextIndex === 0;
+  howNextButton.disabled = nextIndex === howProgramDefinitions.length - 1;
+  if (focusedButton === howPreviousButton && howPreviousButton.disabled) howNextButton.focus();
+  if (focusedButton === howNextButton && howNextButton.disabled) howPreviousButton.focus();
+  howModal.querySelector('.how-dialog-content').scrollTop = 0;
+};
+const openHowModal = (trigger) => {
+  const index = howProgramDefinitions.findIndex((item) => item.key === trigger.dataset.howOpen);
+  if (index < 0) return;
+  renderHowProgram(index);
   howLastTrigger = trigger;
   howModal.hidden = false;
   howModal.setAttribute('aria-hidden', 'false');
@@ -352,6 +375,21 @@ const openHowModal = (trigger) => {
   requestAnimationFrame(() => howModal.querySelector('[data-close-how]')?.focus());
 };
 document.querySelectorAll('[data-how-open]').forEach((trigger) => trigger.addEventListener('click', () => openHowModal(trigger)));
+howPreviousButton.addEventListener('click', () => renderHowProgram(howCurrentIndex - 1));
+howNextButton.addEventListener('click', () => renderHowProgram(howCurrentIndex + 1));
+howDialog.addEventListener('keydown', (event) => {
+  if (event.key !== 'Tab') return;
+  const buttons = [...howDialog.querySelectorAll('button:not(:disabled)')];
+  const first = buttons[0];
+  const last = buttons[buttons.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
 howModal.querySelectorAll('[data-close-how]').forEach((button) => button.addEventListener('click', closeHowModal));
 howModal.addEventListener('click', (event) => { if (event.target === howModal) closeHowModal(); });
 
@@ -444,15 +482,12 @@ concernDefinitions.forEach((definition) => {
     }
     if (label) {
       const title = document.createElement('strong');
-      const number = document.createElement('small');
       const summary = document.createElement('span');
       title.className = 'fp-concern-title';
-      number.className = 'fp-concern-number';
       summary.className = 'fp-concern-summary';
       title.textContent = definition.title;
-      number.textContent = String(concernDefinitions.indexOf(definition) + 1).padStart(2, '0');
       summary.textContent = definition.copy.join(' ');
-      label.replaceChildren(title, number, summary);
+      label.replaceChildren(title, summary);
     }
     concernGrid?.appendChild(trigger);
   }
