@@ -548,25 +548,48 @@ concernDefinitions.forEach((definition) => {
   }
 });
 if (concernGrid) {
-  const center = document.createElement('div');
-  center.className = 'fp-concern-center';
-  center.innerHTML = '<img src="assets/fertility/concerns-body.png" alt="Illustration representing female reproductive wellness">';
-  const leftColumn = document.createElement('div');
-  const centerColumn = document.createElement('div');
-  const rightColumn = document.createElement('div');
-  leftColumn.className = 'fp-concern-column fp-concern-column-left';
-  centerColumn.className = 'fp-concern-column fp-concern-column-center';
-  rightColumn.className = 'fp-concern-column fp-concern-column-right';
-  ['low-amh', 'miscarriages', 'failed-iui-ivf'].forEach((key) => leftColumn.appendChild(concernGrid.querySelector(`[data-concern-open="${key}"]`)));
-  centerColumn.append(center, concernGrid.querySelector('[data-concern-open="weight-concerns"]'));
-  ['pcod', 'unexplained-infertility', 'sperm-metrics'].forEach((key) => rightColumn.appendChild(concernGrid.querySelector(`[data-concern-open="${key}"]`)));
-  concernGrid.replaceChildren(leftColumn, centerColumn, rightColumn);
-  concernGrid.querySelectorAll('.fp-concern').forEach((card) => {
+  const visual = document.createElement('div');
+  visual.className = 'fp-concern-visual';
+  visual.innerHTML = '<img src="assets/fertility/concerns-body.png" alt="Illustration representing female reproductive wellness">';
+  const list = document.createElement('div');
+  list.className = 'fp-concern-list';
+  ['low-amh', 'pcod', 'miscarriages', 'failed-iui-ivf', 'unexplained-infertility', 'weight-concerns', 'sperm-metrics'].forEach((key) => {
+    const card = concernGrid.querySelector(`[data-concern-open="${key}"]`);
+    if (card) list.appendChild(card);
+  });
+  concernGrid.replaceChildren(visual, list);
+  list.querySelectorAll('.fp-concern').forEach((card, index) => {
     const staticCard = document.createElement('article');
-    staticCard.className = card.className;
+    staticCard.className = `${card.className}${index === 0 ? ' is-expanded' : ''}`;
     staticCard.dataset.concernKey = card.dataset.concernOpen || '';
     staticCard.replaceChildren(...card.childNodes);
+    const title = staticCard.querySelector('.fp-concern-title');
+    const summary = staticCard.querySelector('.fp-concern-summary');
+    if (title && summary) {
+      const toggle = document.createElement('button');
+      toggle.className = 'fp-concern-title';
+      toggle.type = 'button';
+      toggle.id = `concern-toggle-${staticCard.dataset.concernKey}`;
+      toggle.setAttribute('aria-expanded', String(index === 0));
+      toggle.setAttribute('aria-controls', `concern-summary-${staticCard.dataset.concernKey}`);
+      toggle.textContent = title.textContent;
+      summary.id = `concern-summary-${staticCard.dataset.concernKey}`;
+      summary.setAttribute('role', 'region');
+      summary.setAttribute('aria-labelledby', toggle.id);
+      title.replaceWith(toggle);
+    }
     card.replaceWith(staticCard);
+  });
+  list.addEventListener('click', (event) => {
+    const toggle = event.target.closest('.fp-concern-title');
+    if (!toggle) return;
+    const card = toggle.closest('.fp-concern');
+    const expand = !card.classList.contains('is-expanded');
+    list.querySelectorAll('.fp-concern').forEach((item) => {
+      const isExpanded = item === card && expand;
+      item.classList.toggle('is-expanded', isExpanded);
+      item.querySelector('.fp-concern-title')?.setAttribute('aria-expanded', String(isExpanded));
+    });
   });
 }
 const concernPanels = [...document.querySelectorAll('[data-concern-panel]')];
