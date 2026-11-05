@@ -69,8 +69,9 @@ const enableDragScroll = (track) => {
   let dragStartScroll = 0;
   let dragged = false;
 
+  track.addEventListener('dragstart', (event) => event.preventDefault());
   track.addEventListener('pointerdown', (event) => {
-    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button,a,input,select,textarea,[contenteditable="true"]')) return;
     dragStartX = event.clientX;
     dragStartScroll = track.scrollLeft;
     dragged = false;
@@ -81,7 +82,10 @@ const enableDragScroll = (track) => {
   track.addEventListener('pointermove', (event) => {
     if (!track.hasPointerCapture(event.pointerId)) return;
     const distance = event.clientX - dragStartX;
-    if (Math.abs(distance) > 4) dragged = true;
+    if (Math.abs(distance) > 4) {
+      dragged = true;
+      event.preventDefault();
+    }
     track.scrollLeft = dragStartScroll - distance;
   });
 
@@ -93,6 +97,7 @@ const enableDragScroll = (track) => {
 
   track.addEventListener('pointerup', finishDrag);
   track.addEventListener('pointercancel', finishDrag);
+  track.addEventListener('lostpointercapture', () => track.classList.remove('is-dragging'));
   track.addEventListener('click', (event) => {
     if (!dragged) return;
     event.preventDefault();
@@ -101,8 +106,7 @@ const enableDragScroll = (track) => {
   }, true);
 };
 
-document.querySelectorAll('[data-track="stories"], [data-track="care"], [data-track="news"]')
-  .forEach(enableDragScroll);
+document.querySelectorAll('[data-track]').forEach(enableDragScroll);
 
 const storyTrack = document.querySelector('[data-track="stories"]');
 const storyTabs = [...document.querySelectorAll('.story-tabs [role="tab"]')];
@@ -159,7 +163,37 @@ const callFormDialog = document.querySelector('.call-form-dialog');
 const callSuccessDialog = document.querySelector('.call-success-dialog');
 const callForm = document.querySelector('[data-call-form]');
 const callSuccessTitle = document.querySelector('#call-success-title');
+const callModule = document.querySelector('#call-module');
+const callSubprogram = document.querySelector('#call-subprogram');
+const callSubprograms = {
+  fertility: [
+    'Natural Fertility Program',
+    'IUI/IVF Preparation Program',
+    'Egg Freezing Prep Program',
+    'PMOS Balance Program'
+  ],
+  pregnancy: [
+    'Pregnancy Wellness Program',
+    'Postpartum Recovery Program'
+  ],
+  'weight-loss': [
+    'GLP-1 Weight Management Program',
+    'Sustainable Weight Loss Program'
+  ]
+};
 let lastCallTrigger = null;
+
+const updateCallSubprograms = () => {
+  if (!callModule || !callSubprogram) return;
+  const subprograms = callSubprograms[callModule.value] || [];
+  callSubprogram.replaceChildren(new Option('Select a subprogram', '', true, true));
+  callSubprogram.options[0].disabled = true;
+  subprograms.forEach((subprogram) => callSubprogram.add(new Option(subprogram, subprogram)));
+  callSubprogram.disabled = subprograms.length === 0;
+};
+
+callModule?.addEventListener('change', updateCallSubprograms);
+updateCallSubprograms();
 
 const closeCallModal = () => {
   if (!callModal || callModal.hidden) return;
@@ -250,4 +284,3 @@ document.addEventListener('keydown', (event) => {
     item.querySelector('.submenu-toggle').setAttribute('aria-expanded', 'false');
   });
 });
-
