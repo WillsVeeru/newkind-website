@@ -7,6 +7,7 @@
   <title>NewKind - Healthcare built around you</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="refinements.css">
+  <link rel="stylesheet" href="home-quiz.css">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -37,7 +38,7 @@
         <p class="eyebrow light">A MORE PERSONAL APPROACH TO HEALTHCARE</p>
         <h1>Healthcare that’s<br>built around you.</h1>
         <p class="hero-copy">Expert guidance, tailored programs, and meaningful health<br class="desktop-only"> insights to help you navigate your health journey with greater<br class="desktop-only"> confidence.</p>
-        <div class="hero-actions"><a class="btn btn-pink" href="#programs">Take a Quiz <span class="material-arrow" aria-hidden="true"><svg class="material-symbol-arrow-right-alt" viewBox="0 0 24 24" focusable="false"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg></span></a><a class="video-link" href="#how-it-works"><span class="play-outline"><svg class="icon icon-play" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="m10 9 5 3-5 3Z"/></svg></span>Watch How It Works</a></div>
+        <div class="hero-actions"><button class="btn btn-pink home-quiz-trigger" type="button" data-open-home-quiz>Take a Quiz <span class="material-arrow" aria-hidden="true"><svg class="material-symbol-arrow-right-alt" viewBox="0 0 24 24" focusable="false"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg></span></button><a class="video-link" href="#how-it-works"><span class="play-outline"><svg class="icon icon-play" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="m10 9 5 3-5 3Z"/></svg></span>Watch How It Works</a></div>
       </div>
     </section>
 
@@ -126,9 +127,76 @@
       <button class="call-success-close" type="button" data-close-call>Close</button>
     </section>
   </div>
+  <div class="home-quiz-modal" data-home-quiz-modal aria-hidden="true" hidden>
+    <section class="home-quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="home-quiz-title" aria-describedby="home-quiz-description">
+      <button class="home-quiz-close" type="button" data-close-home-quiz aria-label="Close program finder"></button>
+      <div class="home-quiz-main">
+        <p class="home-quiz-eyebrow">YOUR PERSONALIZED PROGRAM FINDER</p>
+        <h2 id="home-quiz-title">Let’s find a helpful place to start.</h2>
+        <p class="home-quiz-description" id="home-quiz-description">Answer a few questions to explore the NewKind support that may fit your goals.</p>
+        <div class="home-quiz-progress" aria-live="polite">
+          <div class="home-quiz-progress-copy"><span data-home-quiz-step-label>Step 1 of 5</span><span data-home-quiz-percent>20%</span></div>
+          <div class="home-quiz-progress-track"><span data-home-quiz-progress-bar></span></div>
+        </div>
+        <form class="home-quiz-form" data-home-quiz-form novalidate>
+          <fieldset class="home-quiz-panel" data-home-quiz-panel="1">
+            <legend>What would you most like support with?</legend>
+            <p class="home-quiz-hint">Choose the area that feels closest to your needs right now.</p>
+            <div class="home-quiz-choice-grid home-quiz-programs">
+              <label class="home-quiz-choice"><input type="radio" name="program" value="fertility" required><span><strong>Fertility</strong><small>Support while planning, trying to conceive, or exploring treatment.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></label>
+              <label class="home-quiz-choice"><input type="radio" name="program" value="pregnancy"><span><strong>Pregnancy</strong><small>Guidance through pregnancy and postpartum recovery.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></label>
+              <label class="home-quiz-choice"><input type="radio" name="program" value="weight-loss"><span><strong>Weight Loss</strong><small>Explore medically guided or sustainable lifestyle support.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></label>
+            </div>
+          </fieldset>
+          <fieldset class="home-quiz-panel" data-home-quiz-panel="2" hidden>
+            <legend>Where are you in your journey?</legend>
+            <p class="home-quiz-hint">Your answer helps us show more relevant information.</p>
+            <div class="home-quiz-field"><label for="home-quiz-subprogram">Program you’d like to explore</label><select id="home-quiz-subprogram" name="subprogram" required></select></div>
+            <div class="home-quiz-choice-list" data-home-quiz-stages></div>
+          </fieldset>
+          <fieldset class="home-quiz-panel" data-home-quiz-panel="3" hidden>
+            <legend>What kind of support matters most to you?</legend>
+            <p class="home-quiz-hint">Select all that feel relevant. There are no wrong answers.</p>
+            <div class="home-quiz-choice-grid home-quiz-goals" data-home-quiz-goals></div>
+          </fieldset>
+          <fieldset class="home-quiz-panel home-quiz-contact" data-home-quiz-panel="4" hidden>
+            <legend>Where can our team reach you?</legend>
+            <p class="home-quiz-hint">Share your details before reviewing your personalized starting point.</p>
+            <div class="home-quiz-contact-fields">
+              <div class="home-quiz-field home-quiz-field-full"><label for="home-quiz-name">Full name</label><input id="home-quiz-name" name="name" type="text" autocomplete="name" placeholder="Enter your full name" required></div>
+              <div class="home-quiz-field"><label for="home-quiz-email">Email address</label><input id="home-quiz-email" name="email" type="email" autocomplete="email" placeholder="Enter your email" required></div>
+              <div class="home-quiz-field"><label for="home-quiz-phone">Phone number</label><input id="home-quiz-phone" name="phone" type="tel" autocomplete="tel" placeholder="Enter your phone number" required></div>
+            </div>
+          </fieldset>
+          <section class="home-quiz-panel home-quiz-result" data-home-quiz-panel="5" aria-labelledby="home-quiz-result-title" hidden>
+            <p class="home-quiz-result-label">A THOUGHTFUL NEXT STEP</p>
+            <h3 id="home-quiz-result-title">Your starting point</h3>
+            <p data-home-quiz-result-copy></p>
+            <div class="home-quiz-result-tags" data-home-quiz-result-tags></div>
+            <p class="home-quiz-result-note">This is general program information, not a medical assessment or diagnosis. Your care team can discuss what is appropriate for your individual health needs.</p>
+            <p class="home-quiz-submit-note">Submit to open an email with your answers ready to send. Your details are not submitted to a server.</p>
+          </section>
+          <p class="home-quiz-error" data-home-quiz-error role="alert" hidden></p>
+          <div class="home-quiz-actions">
+            <button class="home-quiz-back" type="button" data-home-quiz-back hidden>Back</button>
+            <button class="btn btn-pink home-quiz-next" type="button" data-home-quiz-next>Continue <span class="material-arrow" aria-hidden="true"><svg class="material-symbol-arrow-right-alt" viewBox="0 0 24 24" focusable="false"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg></span></button>
+            <button class="btn btn-pink home-quiz-next" type="submit" data-home-quiz-submit hidden>Submit answers <span class="material-arrow" aria-hidden="true"><svg class="material-symbol-arrow-right-alt" viewBox="0 0 24 24" focusable="false"><path d="m14 7-1.41 1.41L15.17 11H4v2h11.17l-2.58 2.59L14 17l5-5Z"/></svg></span></button>
+          </div>
+        </form>
+      </div>
+      <aside class="home-quiz-guidance" aria-live="polite" aria-atomic="true">
+        <span class="home-quiz-guidance-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-4 12.74c.63.46 1 1.2 1 1.96V18h6v-.3c0-.76.37-1.5 1-1.96A7 7 0 0 0 12 3Z"/><path d="M9 21h6m-5-3v-2m4 2v-2M12 7v4m-2-2h4"/></svg></span>
+        <p class="home-quiz-guidance-kicker">A NOTE FOR YOU</p>
+        <h3 data-home-quiz-guidance-title>Personalized, not one-size-fits-all.</h3>
+        <p data-home-quiz-guidance-copy>Choose a focus area and we’ll share helpful context as you go. Your answers are only used to shape this on-page guide.</p>
+        <p class="home-quiz-guidance-footnote">For education only. This quiz does not replace professional medical advice.</p>
+      </aside>
+    </section>
+  </div>
   <script src="assets/vendor/gsap.min.js"></script>
   <script src="assets/vendor/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
+  <script src="home-quiz.js"></script>
   <script src="animations.js"></script>
 </body>
 </html>
